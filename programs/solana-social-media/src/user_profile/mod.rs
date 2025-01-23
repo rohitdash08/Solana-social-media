@@ -1,5 +1,8 @@
-pub mod state;
 pub mod instructions;
+pub mod state;
 
-pub us instructions::*;
-pub use state::*;
+pub use instructions::{CreateProfile, UpdateProfile};
+pub use state::UserProfile;
+
+// pub use instructions::*;
+// pub use state::*;

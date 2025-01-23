@@ -40,6 +40,6 @@ pub fn update_profile(
     let user_profile = &mut ctx.accounts.user_profile;
     user_profile.username = username;
     user_profile.bio = bio;
-    user_profile.profile_picture = profile_picture
+    user_profile.profile_picture = profile_picture;
     Ok(())
 }

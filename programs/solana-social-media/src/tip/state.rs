@@ -7,3 +7,8 @@ pub struct Tip {
     pub amount: u64,
     pub timestamp: i64,
 }
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug)]
+pub struct Bumps {
+    pub post: Pubkey,
+}

@@ -7,3 +7,8 @@ pub struct Subscription {
     pub start_time: i64,
     pub end_time: i64,
 }
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug)]
+pub struct Bumps {
+    pub post: Pubkey,
+}

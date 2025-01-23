@@ -7,3 +7,8 @@ pub struct Post {
     pub timestamp: i64,
     pub is_exclusive: bool
 }
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug)]
+pub struct Bumps {
+    pub post: Pubkey,
+}
