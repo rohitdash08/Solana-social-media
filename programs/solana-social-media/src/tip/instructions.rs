@@ -1,5 +1,5 @@
-ues anchor_lang::prelude::*;
-use crate::tip::state::Tip;
+use anchor_lang::prelude::*;
+use crate::tip::state::*;
 
 #[derive(Accounts)]
 pub struct SendTip<'info> {
@@ -7,8 +7,17 @@ pub struct SendTip<'info> {
     pub tip: Account<'info, Tip>,
     #[account(mut)]
     pub from: Signer<'info>,
-    pub to: AccountInfo<'info>
+    /// CHECK: This is the recipient's account. No need to validate it here.
+    pub to: AccountInfo<'info>,
     pub system_program: Program<'info, System>,
+}
+
+impl<'info> SendTip<'info> {
+    pub fn bumps(&self) -> Bumps {
+        Bumps {
+            post: *self.tip.to_account_info().key,
+        }
+    }
 }
 
 pub fn send_tip(
@@ -21,6 +30,7 @@ pub fn send_tip(
     tip.amount = amount;
     tip.timestamp = Clock::get()?.unix_timestamp;
 
+    // Transfer SOL from tipper to creator
     let from_account = &ctx.accounts.from;
     let to_account = &ctx.accounts.to;
     let transfer_instruction = anchor_lang::solana_program::system_instruction::transfer(
